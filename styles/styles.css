@@ -65,7 +65,7 @@ body {
     border-radius: 20px;
     animation: 3s spin linear infinite;
     z-index: -1;
-}
+}   
 
 @keyframes spin {
     0% {
@@ -94,6 +94,11 @@ label {
     width: 70%;
 }
 
+input[type="number"]::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 input, textarea {
     font-family: 'Space Mono', sans-serif;
     font-size: 0.7em;
@@ -116,9 +121,13 @@ textarea {
     padding-left: 15px;
 }
 
-input:focus, textarea:focus {
-    border: 1px solid #bf00ff;
+input:focus, textarea:focus, input.empty {
+    border-color: #bf00ff;
     outline: none;
+}
+
+input.valid {
+    border-color: #00ff99;
 }
 
 input[type="radio"] {
@@ -136,7 +145,6 @@ label[class="opt1"], label[class="opt2"] {
     display: block;
     cursor: pointer;
     font-weight: 600;
-    margin-bottom: 10px;
 }
 
 label span {
@@ -167,7 +175,7 @@ input[type="radio"]:checked + span::before {
 }
 
 .identifyBtn {
-    margin: 10px 0;
+    margin: 0;
     padding: 5px 15px;
     border: none;
     font-size: 17px;
@@ -198,6 +206,11 @@ input[type="radio"]:checked + span::before {
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+#fNameCtr, #lNameCtr, #addressCtr {
+    font-size: 0.6em;
+    height: 0.6em;
 }
 
 .error {

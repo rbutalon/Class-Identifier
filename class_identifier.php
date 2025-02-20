@@ -14,15 +14,17 @@
         <div class="rgbBorder"></div>
         <form class="card" id="card" method="POST" onsubmit="return validateInput()">
                 <div class="input-group">
-                    <label for="fName">First Name </label>
-                    <input type="text" name="fName" id="fName" placeholder="Enter your first name." required>
+                    <label for="fName">First Name *</label>
+                    <input type="text" name="fName" id="fName" data-counter="#fNameCtr" placeholder="Enter your first name." required>
+                    <span id="fNameCtr">0/50</span>
                 </div>
                 <div class="input-group">
-                    <label for="lName">Last Name </label>
-                    <input type="text" name="lName" id="lName" placeholder="Enter your last name." required>
+                    <label for="lName">Last Name *</label>
+                    <input type="text" name="lName" id="lName" data-counter="#lNameCtr" placeholder="Enter your last name." required>
+                    <span id="lNameCtr">0/50</span>
                 </div>
                 <div class="input-group">
-                    <label>Gender</label>
+                    <label>Gender *</label>
                     <div class="option-group">
                         <label class="opt1">
                             <input type="radio" name="genderOpt" id="maleOption" value="3" checked required>
@@ -35,12 +37,13 @@
                     </div>
                 </div>
                 <div class="input-group">
-                    <label for="age">Age </label>
-                    <input type="number" name="age" id="age" min="7" max="50" placeholder="Enter your age." required>
+                    <label for="age">Age *</label>
+                    <input type="number" inputmode="numeric" name="age" id="age" min="3" max="100" placeholder="Enter your age." required>
                 </div>
                 <div class="input-group">
-                    <label for="address">Address </label>
-                    <textarea name="address" id="address" rows="4" cols="50" placeholder="Type your address here." required></textarea>
+                    <label for="address">Address *</label>
+                    <textarea name="address" id="address" rows="4" cols="50" data-counter="#addressCtr" placeholder="Type your address here." required></textarea>
+                    <span id="addressCtr">0/150</span>
                 </div>
                 <span id="message"></span>
                 <button class="identifyBtn" type="submit">Identify</button>
@@ -52,7 +55,9 @@
 <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // kunin yung values ng mga input fields, if may laman, kunin yung value, else, empty string
-        $fname = isset($_POST["fName"]) ? strtoupper($_POST["fName"]) : ''; // kunin then i-uppercase
+        
+        $fName = isset($_POST["fName"]) ? $_POST["fName"] : '';
+        $lName = isset($_POST['lName']) ? $_POST["lName"] : '';
         $surname = isset($_POST["lName"]) ? strtoupper($_POST["lName"]) : ''; // kunin then i-uppercase
         $gender = isset($_POST["genderOpt"]) ? $_POST["genderOpt"] : ''; 
         $age = isset($_POST["age"]) ? $_POST["age"] : '';
@@ -60,7 +65,7 @@
 
         $section = "Unknown";  //default value 
 
-        if (!empty($surname) && !empty($fname)) {
+        if (!empty($surname) && !empty($fName)) {
             $firstLetter = $surname[0];
             $surnameGroup = ($firstLetter >= 'A' && $firstLetter <= 'M') ? 1 : 2;
     
@@ -90,7 +95,7 @@
         }).then(() => {
             Swal.fire({
                 title: 'Summary of Input',
-                html: 'Name: $fname $surname <br> Gender: $gender <br> Section: $section <br> Age: $age <br> Address: $address',
+                html: 'Name: $fName $lName <br> Gender: $gender <br> Section: $section <br> Age: $age <br> Address: $address',
                 icon: 'info',
                 confirmButtonText: 'Cool!'
             });
